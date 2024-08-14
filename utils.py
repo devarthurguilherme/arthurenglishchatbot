@@ -27,7 +27,7 @@ def generateAndDisplay_audio(text, voice):
     audio_file_path = asyncio.run(generate_audio(text, voice))
 
     # Exibe o áudio em Streamlit
-    st.audio(audio_file_path, format='audio/mp3')
+    st.audio(audio_file_path, format='audio/wav')
 
 
 def transcribe_audio(audio_buffer):
