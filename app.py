@@ -124,27 +124,15 @@ def main():
             }
             st.session_state.selected_model = "gemma2-9b-it"
 
-        # Seleção das Vozes
+        # Seleção do modelo
+        selected_model = st.selectbox("Model",
+                                      ["gemma2-9b-it", "llama-3.1-70b-versatile", "llama3-groq-70b-8192-tool-use-preview", "llama3-70b-8192", "mixtral-8x7b-32768"])
+
         selected_voice = st.selectbox("Accent", VOICES)
 
-    # Layout com uma coluna pequena
-    col1, col2 = st.columns([0.7, 3.3])  # Ajuste os pesos conforme necessário
-
-    with col1:
-        selected_model = st.selectbox(
-            "Model",
-            [
-                "gemma2-9b-it",
-                "llama-3.1-70b-versatile",
-                "llama3-groq-70b-8192-tool-use-preview",
-                "llama3-70b-8192",
-                "mixtral-8x7b-32768"
-            ]
-        )
-
-    # Salvar a seleção do modelo no estado da sessão
     st.session_state.selected_model = selected_model
 
+    # Exibir histórico com ícones
     for user_message, response in st.session_state.responses[selected_model]:
         with st.chat_message("user"):
             st.write(f"{user_message}")
