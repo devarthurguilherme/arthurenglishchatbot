@@ -38,14 +38,14 @@ def generateAndDisplay_audio(text, voice):
     st.audio(audio_file_path, format='audio/wav')
 
 
-def transcribe_audio(audio_buffer):
+def transcribe_audio(audio_buffer, language='en-US'):
     # Initialize recognizer
     r = sr.Recognizer()
     with sr.AudioFile(audio_buffer) as source:
         audio_data = r.record(source)
         try:
-            # Perform speech recognition
-            text = r.recognize_google(audio_data)
+            # Perform speech recognition with specified language
+            text = r.recognize_google(audio_data, language=language)
             return text
         except sr.RequestError as e:
             return f"Could not request results; {e}"

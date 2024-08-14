@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from utils import *
 from audio_recorder_streamlit import audio_recorder
 from EdgeAvailableVoices import VOICES
+from UserInputLanguage import INPUT_LANGUAGE
 
 
 # Carregar variáveis de ambiente
@@ -95,12 +96,16 @@ def main():
         # Button to start recording
         audio_bytes = audio_recorder()
 
+        # Seleção da Lingua de User Input Audio
+        selected_language = st.selectbox(
+            "Input Audio Language", INPUT_LANGUAGE)
+
         if audio_bytes:
             # Convert audio bytes to a BytesIO object
             audio_buffer = io.BytesIO(audio_bytes)
 
             # Transcribe the audio
-            transcription = transcribe_audio(audio_buffer)
+            transcription = transcribe_audio(audio_buffer, selected_language)
 
             # Show the transcription result
             # st.write(f"Transcribed text: {transcription}")
