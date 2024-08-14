@@ -156,10 +156,22 @@ def main():
             (st.session_state.prompt, response))
 
         # Exibe a resposta
+        # with st.chat_message("user"):
+        #     st.write(f"{st.session_state.prompt}")
+        #     # Optionally, you can also play back the recorded audio
+        #     st.audio(audio_bytes, format="audio/wav")
+        # with st.chat_message("assistant"):
+        #     st.write(f"{response}")
+        #     generateAndDisplay_audio(str(response), "en-US-GuyNeural")
+        # Exibe a resposta
         with st.chat_message("user"):
             st.write(f"{st.session_state.prompt}")
-            # Optionally, you can also play back the recorded audio
-            st.audio(audio_bytes, format="audio/wav")
+
+            # Verifica se há áudio gravado
+            if 'audio_bytes' in st.session_state and st.session_state.audio_bytes:
+                # Exibe o áudio gravado se disponível
+                st.audio(st.session_state.audio_bytes, format="audio/wav")
+
         with st.chat_message("assistant"):
             st.write(f"{response}")
             generateAndDisplay_audio(str(response), "en-US-GuyNeural")

@@ -3,6 +3,7 @@ import edge_tts
 import streamlit as st
 import tempfile
 import speech_recognition as sr
+import re
 
 import io
 
@@ -21,10 +22,20 @@ async def generate_audio(text, voice):
     return temp_file_path
 
 
+def clean_text(text):
+    """Remove caracteres especiais, mantendo apenas letras e números."""
+    # Usa uma expressão regular para manter apenas letras e números
+    cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
+    return cleaned_text
+
+
 def generateAndDisplay_audio(text, voice):
-    """Gera áudio a partir do texto e exibe o áudio em Streamlit."""
+    """Gera áudio a partir do texto filtrado e exibe o áudio em Streamlit."""
+    # Limpa o texto para remover caracteres especiais
+    cleaned_text = clean_text(text)
+
     # Executa a geração de áudio de forma assíncrona
-    audio_file_path = asyncio.run(generate_audio(text, voice))
+    audio_file_path = asyncio.run(generate_audio(cleaned_text, voice))
 
     # Exibe o áudio em Streamlit
     st.audio(audio_file_path, format='audio/wav')
