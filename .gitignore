@@ -4,7 +4,9 @@ env/
 
 # Test Files
 chatbot.py
-STT.py
+backupapp.py
+backuputils.py
 testSttARStreamlit.py
+STT.py
 TTS.py
 TTS_WAV
