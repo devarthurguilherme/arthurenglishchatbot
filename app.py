@@ -4,6 +4,7 @@ from groq import Groq
 from dotenv import load_dotenv
 from utils import *
 from audio_recorder_streamlit import audio_recorder
+from EdgeAvailableVoices import VOICES
 
 
 # Carregar variáveis de ambiente
@@ -119,8 +120,10 @@ def main():
             st.session_state.selected_model = "gemma2-9b-it"
 
         # Seleção do modelo
-        selected_model = st.selectbox("Escolha o modelo",
+        selected_model = st.selectbox("Model",
                                       ["gemma2-9b-it", "llama-3.1-70b-versatile", "llama3-groq-70b-8192-tool-use-preview", "llama3-70b-8192", "mixtral-8x7b-32768"])
+
+        selected_voice = st.selectbox("Accent", VOICES)
 
     st.session_state.selected_model = selected_model
 
@@ -166,7 +169,7 @@ def main():
 
         with st.chat_message("assistant"):
             st.write(f"{response}")
-            generateAndDisplay_audio(str(response), "en-US-JennyNeural")
+            generateAndDisplay_audio(str(response), selected_voice)
 
 
 if __name__ == "__main__":

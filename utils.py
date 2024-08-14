@@ -4,10 +4,7 @@ import streamlit as st
 import tempfile
 import speech_recognition as sr
 import re
-
 import io
-
-VOICES = ['en-US-GuyNeural', 'en-US-JennyNeural']
 
 
 async def generate_audio(text, voice):
