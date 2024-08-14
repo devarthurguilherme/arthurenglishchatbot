@@ -2,7 +2,9 @@
 env/
 **/env/
 
-# Test Files
+.env
+
+# Test Python Files
 chatbot.py
 backupapp.py
 backuputils.py
@@ -11,3 +13,6 @@ STT.py
 TTS.py
 TTS_WAV.py
 utils.py
+
+# Instructions
+instructions.txt

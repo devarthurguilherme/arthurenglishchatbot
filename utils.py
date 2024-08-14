@@ -48,7 +48,7 @@ def transcribe_audio(audio_buffer):
         audio_data = r.record(source)
         try:
             # Perform speech recognition
-            text = r.recognize_google(audio_data, language='pt-BR')
+            text = r.recognize_google(audio_data)
             return text
         except sr.RequestError as e:
             return f"Could not request results; {e}"

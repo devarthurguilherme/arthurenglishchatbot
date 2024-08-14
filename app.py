@@ -24,13 +24,13 @@ def readContextFromFile(file_path):
 
 
 # Carregar o contexto
-# aboutTable = readContextFromFile('tabela_clientes.txt')
+generalInstructions = readContextFromFile('instructions.txt')
 
 
 def get_response_from_model(model, message, history):
     # Função genérica para chamada da API
     messages = [
-        {"role": "user", "content": "You are a teacher english for brazilians and become easier to understand the language."},
+        {"role": "user", "content": generalInstructions},
         # {"role": "user", "content": aboutTable}
     ]
 
@@ -90,7 +90,6 @@ def main():
     # Sidebar
     with st.sidebar:
         st.title("English Teacher Chatbot")
-##########################################################################
 
         # Button to start recording
         audio_bytes = audio_recorder()
@@ -108,7 +107,6 @@ def main():
             if transcription:
                 st.session_state.prompt = transcription
 
-##########################################################################
         # Inicializar o histórico do estado da sessão, se não existir
         if "responses" not in st.session_state:
             st.session_state.responses = {
@@ -156,16 +154,10 @@ def main():
             (st.session_state.prompt, response))
 
         # Exibe a resposta
-        # with st.chat_message("user"):
-        #     st.write(f"{st.session_state.prompt}")
-        #     # Optionally, you can also play back the recorded audio
-        #     st.audio(audio_bytes, format="audio/wav")
-        # with st.chat_message("assistant"):
-        #     st.write(f"{response}")
-        #     generateAndDisplay_audio(str(response), "en-US-GuyNeural")
-        # Exibe a resposta
         with st.chat_message("user"):
             st.write(f"{st.session_state.prompt}")
+            # After sent, clean prompt message
+            st.session_state.prompt = ""
 
             # Verifica se há áudio gravado
             if 'audio_bytes' in st.session_state and st.session_state.audio_bytes:
@@ -174,7 +166,7 @@ def main():
 
         with st.chat_message("assistant"):
             st.write(f"{response}")
-            generateAndDisplay_audio(str(response), "en-US-GuyNeural")
+            generateAndDisplay_audio(str(response), "en-US-JennyNeural")
 
 
 if __name__ == "__main__":
