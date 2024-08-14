@@ -1,3 +1,6 @@
 streamlit
 python-dotenv
 audio_recorder_streamlit
+groq
+edge-tts
+SpeechRecognition

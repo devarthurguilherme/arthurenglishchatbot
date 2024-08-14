@@ -1,2 +1,12 @@
+# Env Files
 env/
 **/env/
+
+# Test Files
+chatbot.py
+STT.py
+testSttARStreamlit.py
+TTS.py
+
+# Generic Functions
+utils.py
