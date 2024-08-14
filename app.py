@@ -24,7 +24,7 @@ def readContextFromFile(file_path):
 
 
 # Carregar o contexto
-aboutTable = readContextFromFile('tabela_clientes.txt')
+# aboutTable = readContextFromFile('tabela_clientes.txt')
 
 
 def get_response_from_model(model, message, history):
