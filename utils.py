@@ -10,11 +10,14 @@ VOICES = ['en-US-GuyNeural', 'en-US-JennyNeural']
 
 
 async def generate_audio(text, voice):
-    """Gera um arquivo de áudio a partir do texto usando a voz selecionada."""
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_file:
+    """Gera um arquivo de áudio a partir do texto usando a voz selecionada e salva como WAV."""
+    # Cria um arquivo temporário para salvar o áudio
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as temp_file:
         temp_file_path = temp_file.name
         communicate = edge_tts.Communicate(text, voice)
         await communicate.save(temp_file_path)
+
+    # Retorna o caminho do arquivo temporário
     return temp_file_path
 
 
