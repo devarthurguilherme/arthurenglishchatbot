@@ -133,6 +133,7 @@ def main():
     st.session_state.selected_model = selected_model
 
     # Exibir histórico com ícones
+    st.write("**Chat:**")
     for user_message, response in st.session_state.responses[selected_model]:
         with st.chat_message("user"):
             st.write(f"{user_message}")
