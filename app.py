@@ -111,7 +111,7 @@ def main():
                 "llama3-70b-8192": [],
                 "mixtral-8x7b-32768": [],
                 "gemma2-9b-it": [],
-                "llama3-groq-70b-8192-tool-use-preview": []
+                "llama3-groq-70b-8192-tool-use-preview": [],
             }
             st.session_state.selectedModel = "llama-3.1-70b-versatile"
 
@@ -120,7 +120,7 @@ def main():
             "llama3-70b-8192",
             "mixtral-8x7b-32768",
             "gemma2-9b-it",
-            "llama3-groq-70b-8192-tool-use-preview"
+            "llama3-groq-70b-8192-tool-use-preview",
         ])
 
         selectedVoice = st.selectbox("Accent", VOICES)
@@ -136,7 +136,7 @@ def main():
             st.write(f"{response}")
 
     # User Input for written
-    newPrompt = st.chat_input("Type a message")
+    newPrompt = st.chat_input("Digite uma mensagem")
     if newPrompt:
         st.session_state.prompt = newPrompt
 
@@ -147,7 +147,7 @@ def main():
             "llama3-70b-8192": chatLlama3_70b_8192,
             "mixtral-8x7b-32768": chatGroqMixtral,
             "gemma2-9b-it": chatGemma2_9bIt,
-            "llama3-groq-70b-8192-tool-use-preview": chatLlama3Groq_70b_8192ToolUsePreview
+            "llama3-groq-70b-8192-tool-use-preview": chatLlama3Groq_70b_8192ToolUsePreview,
         }
         response = modelFunctions[selectedModel](
             st.session_state.prompt, st.session_state.responses[selectedModel])
