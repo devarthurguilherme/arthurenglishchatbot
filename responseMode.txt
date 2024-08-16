@@ -15,9 +15,22 @@ Example:
 Input:
 I like apples, oranges, and bananas.
 
+Hey there!
+How's it going? What's on your mind today?
+
+I'm doing well, thanks for asking!
+
+
 Correct Output:
 I like apples,
 oranges,
 and bananas.
+
+Hey there!
+How's it going? 
+What's on your mind today?
+
+I'm doing well, 
+thanks for asking!
 
 Make sure to apply this formatting throughout your entire response.

@@ -6,32 +6,30 @@ from utils import *
 from audio_recorder_streamlit import audio_recorder
 from EdgeAvailableVoices import VOICES
 from UserInputLanguage import INPUT_LANGUAGE
+import io
 
-
-# Carregar variáveis de ambiente
+# Load Env Variables
 load_dotenv(override=True)
 
-# Configurar cliente Groq
+# Config Client
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 
-def readContextFromFile(file_path):
-    # Função para ler o conteúdo do arquivo de contexto
+def readContextFromFile(filePath):
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
+        with open(filePath, 'r', encoding='utf-8') as file:
             return file.read()
     except FileNotFoundError:
-        st.error(f"Arquivo {file_path} não encontrado.")
+        st.error(f"Arquivo {filePath} não encontrado.")
         return ""
 
 
-# Carregar o contexto
+# Load Context
 generalInstructions = readContextFromFile('instructions.txt')
 responseMode = readContextFromFile('responseMode.txt')
 
 
-def get_response_from_model(model, message, history):
-    # Função genérica para chamada da API
+def getResponseFromModel(model, message, history):
     messages = [
         {"role": "user", "content": generalInstructions},
         {"role": "user", "content": responseMode},
@@ -43,7 +41,7 @@ def get_response_from_model(model, message, history):
 
     messages.append({"role": "user", "content": str(message)})
 
-    response_content = ''
+    responseContent = ''
     stream = client.chat.completions.create(
         model=model,
         messages=messages,
@@ -56,31 +54,50 @@ def get_response_from_model(model, message, history):
     for chunk in stream:
         content = chunk.choices[0].delta.content
         if content:
-            response_content += content
+            responseContent += content
 
-    return response_content.strip()
-
-# Funções específicas para cada modelo
+    return responseContent.strip()
 
 
-def chat_groq_model_1(message, history):
-    return get_response_from_model("gemma2-9b-it", message, history)
+# Functions to each model
+def chatLlama3_1_70bVersatile(message, history):
+    return getResponseFromModel("llama-3.1-70b-versatile", message, history)
 
 
-def chat_groq_model_2(message, history):
-    return get_response_from_model("llama-3.1-70b-versatile", message, history)
+def chatLlama3_70b_8192(message, history):
+    return getResponseFromModel("llama3-70b-8192", message, history)
 
 
-def chat_groq_model_3(message, history):
-    return get_response_from_model("llama3-groq-70b-8192-tool-use-preview", message, history)
+def chatGroqMixtral(message, history):
+    return getResponseFromModel("mixtral-8x7b-32768", message, history)
 
 
-def chat_groq_model_4(message, history):
-    return get_response_from_model("llama3-70b-8192", message, history)
+def chatGemma2_9bIt(message, history):
+    return getResponseFromModel("gemma2-9b-it", message, history)
 
 
-def chat_groq_mixtral(message, history):
-    return get_response_from_model("mixtral-8x7b-32768", message, history)
+def chatLlama3Groq_70b_8192ToolUsePreview(message, history):
+    return getResponseFromModel("llama3-groq-70b-8192-tool-use-preview", message, history)
+
+
+def chatLlama3_1_8bInstant(message, history):
+    return getResponseFromModel("llama-3.1-8b-instant", message, history)
+
+
+def chatLlama3_8b_8192(message, history):
+    return getResponseFromModel("llama3-8b-8192", message, history)
+
+
+def chatLlama3Groq_8b_8192ToolUsePreview(message, history):
+    return getResponseFromModel("llama3-groq-8b-8192-tool-use-preview", message, history)
+
+
+def chatLlamaGuard_3_8b(message, history):
+    return getResponseFromModel("llama-guard-3-8b", message, history)
+
+
+def chatGroqModel_1(message, history):
+    return getResponseFromModel("gemma-7b-it", message, history)
 
 
 def main():
@@ -95,87 +112,97 @@ def main():
         st.title("English Teacher Chatbot")
 
         # Button to start recording
-        audio_bytes = audio_recorder()
+        audioBytes = audio_recorder()
 
-        # Seleção da Lingua de User Input Audio
-        selected_language = st.selectbox(
+        # Select Language to User Input Audio
+        selectedLanguage = st.selectbox(
             "Input Audio Language", INPUT_LANGUAGE)
 
-        if audio_bytes:
-            # Convert audio bytes to a BytesIO object
-            audio_buffer = io.BytesIO(audio_bytes)
-
-            # Transcribe the audio
-            transcription = transcribe_audio(audio_buffer, selected_language)
-
-            # Show the transcription result
-            # st.write(f"Transcribed text: {transcription}")
+        if audioBytes:
+            audioBuffer = io.BytesIO(audioBytes)
+            transcription = transcribeAudio(audioBuffer, selectedLanguage)
 
             if transcription:
                 st.session_state.prompt = transcription
 
-        # Inicializar o histórico do estado da sessão, se não existir
         if "responses" not in st.session_state:
             st.session_state.responses = {
-                "gemma2-9b-it": [],
                 "llama-3.1-70b-versatile": [],
-                "llama3-groq-70b-8192-tool-use-preview": [],
                 "llama3-70b-8192": [],
-                "mixtral-8x7b-32768": []
+                "mixtral-8x7b-32768": [],
+                "gemma2-9b-it": [],
+                "llama3-groq-70b-8192-tool-use-preview": [],
+                "llama-3.1-8b-instant": [],
+                "llama3-8b-8192": [],
+                "llama3-groq-8b-8192-tool-use-preview": [],
+                "llama-guard-3-8b": [],
+                "gemma-7b-it": []
             }
-            st.session_state.selected_model = "gemma2-9b-it"
+            st.session_state.selectedModel = "llama-3.1-70b-versatile"
 
-        # Seleção do modelo
-        selected_model = st.selectbox("Model",
-                                      ["gemma2-9b-it", "llama-3.1-70b-versatile", "llama3-groq-70b-8192-tool-use-preview", "llama3-70b-8192", "mixtral-8x7b-32768"])
+        selectedModel = st.selectbox("Model", [
+            "llama-3.1-70b-versatile",
+            "llama3-70b-8192",
+            "mixtral-8x7b-32768",
+            "gemma2-9b-it",
+            "llama3-groq-70b-8192-tool-use-preview",
+            "llama-3.1-8b-instant",
+            "llama3-8b-8192",
+            "llama3-groq-8b-8192-tool-use-preview",
+            "llama-guard-3-8b",
+            "gemma-7b-it"
+        ])
 
-        selected_voice = st.selectbox("Accent", VOICES)
+        selectedVoice = st.selectbox("Accent", VOICES)
 
-    st.session_state.selected_model = selected_model
+    st.session_state.selectedModel = selectedModel
 
-    # Exibir histórico com ícones
+    # Show Historic Chat
     st.write("**Chat:**")
-    for user_message, response in st.session_state.responses[selected_model]:
+    for userMessage, response in st.session_state.responses[selectedModel]:
         with st.chat_message("user"):
-            st.write(f"{user_message}")
+            st.write(f"{userMessage}")
         with st.chat_message("assistant"):
             st.write(f"{response}")
 
-    # Entrada do usuário
+    # User Input for written
     newPrompt = st.chat_input("Digite uma mensagem")
     if newPrompt:
         st.session_state.prompt = newPrompt
 
     if st.session_state.prompt:
-        # Funções do modelo
-        model_functions = {
-            "gemma2-9b-it": chat_groq_model_1,
-            "llama-3.1-70b-versatile": chat_groq_model_2,
-            "llama3-groq-70b-8192-tool-use-preview": chat_groq_model_3,
-            "llama3-70b-8192": chat_groq_model_4,
-            "mixtral-8x7b-32768": chat_groq_mixtral
+        # Models
+        modelFunctions = {
+            "llama-3.1-70b-versatile": chatLlama3_1_70bVersatile,
+            "llama3-70b-8192": chatLlama3_70b_8192,
+            "mixtral-8x7b-32768": chatGroqMixtral,
+            "gemma2-9b-it": chatGemma2_9bIt,
+            "llama3-groq-70b-8192-tool-use-preview": chatLlama3Groq_70b_8192ToolUsePreview,
+            "llama-3.1-8b-instant": chatLlama3_1_8bInstant,
+            "llama3-8b-8192": chatLlama3_8b_8192,
+            "llama3-groq-8b-8192-tool-use-preview": chatLlama3Groq_8b_8192ToolUsePreview,
+            "llama-guard-3-8b": chatLlamaGuard_3_8b,
+            "gemma-7b-it": chatGroqModel_1
         }
-        response = model_functions[selected_model](
-            st.session_state.prompt, st.session_state.responses[selected_model])
+        response = modelFunctions[selectedModel](
+            st.session_state.prompt, st.session_state.responses[selectedModel])
 
-        # Adiciona ao histórico
-        st.session_state.responses[selected_model].append(
+        # Add to the historic
+        st.session_state.responses[selectedModel].append(
             (st.session_state.prompt, response))
 
-        # Exibe a resposta
+        # Show answer
         with st.chat_message("user"):
             st.write(f"{st.session_state.prompt}")
-            # After sent, clean prompt message
             st.session_state.prompt = ""
 
-            # Verifica se há áudio gravado
-            if 'audio_bytes' in st.session_state and st.session_state.audio_bytes:
-                # Exibe o áudio gravado se disponível
-                st.audio(st.session_state.audio_bytes, format="audio/wav")
+            # Check if there is some record user audio
+            if 'audioBytes' in st.session_state and st.session_state.audioBytes:
+                st.audio(st.session_state.audioBytes, format="audio/wav")
 
         with st.chat_message("assistant"):
             st.write(f"{response}")
-            generateAndDisplay_audio(str(response), selected_voice)
+            generateAndDisplayAudio(str(response), selectedVoice)
 
 
 if __name__ == "__main__":
