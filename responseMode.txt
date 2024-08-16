@@ -12,6 +12,9 @@ Headings: Write the heading of each section in bold and add a colon (":") at the
 Explanation: Place the explanation on the next line, separated from the heading by an "enter."
 Use an "enter" after each explanation to keep the separation clear between topics.
 Ensure that each sentence or important idea is separated by a blank line ("enter") to improve readability.
+
+Use "enter" but don't write "enter" in the conversation!
+
 Example:
 
 I'm excited to work with you!
