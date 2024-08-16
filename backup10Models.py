@@ -25,14 +25,15 @@ def readContextFromFile(filePath):
 
 
 # Load Context
-userContext = readContextFromFile('userContext.txt')
-llmBehavior = readContextFromFile('llmBehavior.txt')
+generalInstructions = readContextFromFile('instructions.txt')
+responseMode = readContextFromFile('responseMode.txt')
 
 
 def getResponseFromModel(model, message, history):
     messages = [
-        {"role": "system", "content": llmBehavior},
-        {"role": "user", "content": userContext},
+        {"role": "system", "content": "Provide direct and concise answers. Focus only on the user's input."},
+        {"role": "user", "content": generalInstructions},
+        {"role": "user", "content": responseMode},
     ]
 
     for msg in history:
