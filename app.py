@@ -27,13 +27,14 @@ def readContextFromFile(file_path):
 
 # Carregar o contexto
 generalInstructions = readContextFromFile('instructions.txt')
+responseMode = readContextFromFile('responseMode.txt')
 
 
 def get_response_from_model(model, message, history):
     # Função genérica para chamada da API
     messages = [
         {"role": "user", "content": generalInstructions},
-        # {"role": "user", "content": aboutTable}
+        {"role": "user", "content": responseMode}
     ]
 
     for msg in history:
