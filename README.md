@@ -1,33 +1,60 @@
-### **APIs**
+# Arthur English Chatbot
 
-**Groq API:**
+**Description:** This project is a chatbot integrated with audio recognition and generation functionalities, using various language models to offer interactions in different languages and voices.
 
-- Utilizado no cliente `client = Groq(api_key=os.environ.get("GROQ_API_KEY"))`. Este cliente é usado para interagir com o serviço Groq, que provavelmente fornece acesso a modelos de linguagem para completar tarefas de NLP.
+## Objective
 
-**Edge TTS API:**
+The primary goal of the Arthur English Chatbot project is to provide an interactive chatbot experience that leverages advanced language models and audio technologies. This chatbot is designed to:
 
-- Utilizado para gerar áudio a partir de texto. O módulo `edge_tts` é usado para criar e salvar o áudio a partir do texto fornecido, utilizando a função `generateAudio`.
+- **Facilitate Language Learning:** Help users practice and improve their English language skills through interactive conversations.
+- **Provide Several Accents:** Offer interactions in different accents, catering to a diverse audience.
+- **Generate and Play Audio:** Convert text responses into audio and play them back, enhancing the conversational experience.
 
-**SpeechRecognition Library (Google Speech-to-Text API):**
+## Language Models Used
 
-- Usado na função `transcribeAudio` para converter áudio em texto. Utiliza o serviço de reconhecimento de fala do Google.
+The chatbot leverages several state-of-the-art language models to deliver diverse and versatile interactions:
 
-### **LLMs (Modelos de Linguagem de Grande Escala)**
+- **Llama 3.1 70B Versatile:** A powerful model known for its broad capabilities and flexibility in various conversational contexts.
+- **Llama 3 70B 8192:** A large model with high performance, suited for detailed and nuanced conversations.
+- **Mixtral 8x7B 32768:** A model designed for extensive context handling and complex interactions.
+- **Gemma 2 9B IT:** Focused on specific tasks with refined capabilities in generating responses.
+- **Llama 3 Groq 70B 8192 Tool Use Preview:** An advanced model with enhanced tool usage features for specific applications.
 
-**Llama Models:**
+## Installation
 
-- Vários modelos de linguagem do Llama são utilizados no código, como:
-  - `"llama-3.1-70b-versatile"`
-  - `"llama3-70b-8192"`
-  - `"llama-3.1-8b-instant"`
-  - `"llama3-8b-8192"`
-  - `"llama3-groq-70b-8192-tool-use-preview"`
-  - `"llama3-groq-8b-8192-tool-use-preview"`
-  - `"llama-guard-3-8b"`
+### Clone the Repository
 
-**Groq Models:**
+![GitHub](https://img.shields.io/badge/GitHub-Clone-blue)
 
-- Inclui modelos como:
-  - `"mixtral-8x7b-32768"`
-  - `"gemma2-9b-it"`
-  - `"gemma-7b-it"`
+```bash
+git clone https://github.com/devarthurguilherme/arthurenglishchatbot.git
+cd arthurenglishchatbot
+```
+
+## Install dependencies:
+
+Create a virtual environment and install the required dependencies:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+pip install -r requirements.txt
+```
+
+### Ensure `.env` File Configuration
+
+Ensure that the `.env` file contains the necessary variables, including [**GROQ_API_KEY**](https://console.groq.com/keys).
+
+## Usage:
+
+### Run the application:
+
+```bash
+streamlit run app.py
+```
+
+### Interact with the chatbot:
+
+- Use the sidebar to record audio or select a model and voice.
+- Type a message to start the conversation.
+- The chatbot can generate and play audio based on your inputs and the model's responses.
