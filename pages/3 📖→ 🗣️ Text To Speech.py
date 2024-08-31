@@ -7,7 +7,7 @@ from EdgeAvailableVoices import VOICES
 
 async def generate_audio(text, voice):
     # Create a temporary file to save the audio
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_file:
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as temp_file:
         temp_file_path = temp_file.name
         communicate = edge_tts.Communicate(text, voice)
         await communicate.save(temp_file_path)
