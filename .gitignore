@@ -8,6 +8,7 @@ env/
 chatbot.py
 backupapp.py
 backup2app.py
+backupSeveralModels.py
 backuputils.py
 testSttARStreamlit.py
 STT.py

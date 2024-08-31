@@ -25,14 +25,19 @@ def readContextFromFile(filePath):
 
 
 # Load Context
-llmBehavior = readContextFromFile('llmBehavior.txt')
-userContext = readContextFromFile('userContext.txt')
+llmBehavior = readContextFromFile('conversationllmBehavior.txt')
+userContext = readContextFromFile('conversationUserContext.txt')
+userContext2 = readContextFromFile(
+    'benginnerExamplesConversationUserContext.txt')
+userContext3 = readContextFromFile(
+    'preIntermediateExamplesConversationUserContext.txt')
 
 
 def getResponseFromModel(model, message, history):
     messages = [
         {"role": "system", "content": llmBehavior},
         {"role": "user", "content": userContext},
+        {"role": "user", "content": userContext2},
     ]
 
     for msg in history:
@@ -80,26 +85,6 @@ def chatLlama3Groq_70b_8192ToolUsePreview(message, history):
     return getResponseFromModel("llama3-groq-70b-8192-tool-use-preview", message, history)
 
 
-def chatLlama3_1_8bInstant(message, history):
-    return getResponseFromModel("llama-3.1-8b-instant", message, history)
-
-
-def chatLlama3_8b_8192(message, history):
-    return getResponseFromModel("llama3-8b-8192", message, history)
-
-
-def chatLlama3Groq_8b_8192ToolUsePreview(message, history):
-    return getResponseFromModel("llama3-groq-8b-8192-tool-use-preview", message, history)
-
-
-def chatLlamaGuard_3_8b(message, history):
-    return getResponseFromModel("llama-guard-3-8b", message, history)
-
-
-def chatGroqModel_1(message, history):
-    return getResponseFromModel("gemma-7b-it", message, history)
-
-
 def main():
     st.set_page_config(layout='wide')
 
@@ -109,7 +94,7 @@ def main():
 
     # Sidebar
     with st.sidebar:
-        st.title("English Teacher Chatbot")
+        st.title("🗣️English Conversation Partner")
 
         # Button to start recording
         audioBytes = audio_recorder()
@@ -132,11 +117,6 @@ def main():
                 "mixtral-8x7b-32768": [],
                 "gemma2-9b-it": [],
                 "llama3-groq-70b-8192-tool-use-preview": [],
-                "llama-3.1-8b-instant": [],
-                "llama3-8b-8192": [],
-                "llama3-groq-8b-8192-tool-use-preview": [],
-                "llama-guard-3-8b": [],
-                "gemma-7b-it": []
             }
             st.session_state.selectedModel = "llama-3.1-70b-versatile"
 
@@ -146,11 +126,6 @@ def main():
             "mixtral-8x7b-32768",
             "gemma2-9b-it",
             "llama3-groq-70b-8192-tool-use-preview",
-            "llama-3.1-8b-instant",
-            "llama3-8b-8192",
-            "llama3-groq-8b-8192-tool-use-preview",
-            "llama-guard-3-8b",
-            "gemma-7b-it"
         ])
 
         selectedVoice = st.selectbox("Accent", VOICES)
@@ -178,11 +153,6 @@ def main():
             "mixtral-8x7b-32768": chatGroqMixtral,
             "gemma2-9b-it": chatGemma2_9bIt,
             "llama3-groq-70b-8192-tool-use-preview": chatLlama3Groq_70b_8192ToolUsePreview,
-            "llama-3.1-8b-instant": chatLlama3_1_8bInstant,
-            "llama3-8b-8192": chatLlama3_8b_8192,
-            "llama3-groq-8b-8192-tool-use-preview": chatLlama3Groq_8b_8192ToolUsePreview,
-            "llama-guard-3-8b": chatLlamaGuard_3_8b,
-            "gemma-7b-it": chatGroqModel_1
         }
         response = modelFunctions[selectedModel](
             st.session_state.prompt, st.session_state.responses[selectedModel])
