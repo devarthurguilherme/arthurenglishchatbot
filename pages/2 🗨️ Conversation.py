@@ -12,7 +12,8 @@ import io
 load_dotenv(override=True)
 
 # Config Client
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+client = Groq(
+    api_key="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")
 
 
 def readContextFromFile(filePath):
