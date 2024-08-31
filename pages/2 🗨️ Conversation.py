@@ -26,7 +26,7 @@ def readContextFromFile(filePath):
 
 
 # Load Context
-conversationLLMBehavior = readContextFromFile('conversationllmBehavior.txt')
+conversationLLMBehavior = readContextFromFile('conversationLlmBehavior.txt')
 conversationUserContext = readContextFromFile('conversationUserContext.txt')
 beginnerExamplesUserContext = readContextFromFile(
     'benginnerExamplesConversationUserContext.txt')
