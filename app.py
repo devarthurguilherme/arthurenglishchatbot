@@ -8,11 +8,12 @@ from EdgeAvailableVoices import VOICES
 from UserInputLanguage import INPUT_LANGUAGE
 import io
 
-# Load Env Variables
-load_dotenv(override=True)
+# # Load Env Variables
+# load_dotenv(override=True)
 
-# Config Client
-client = Groq(api_key=os.environ.get("GROQ_API_KEY3"))
+# Inicializar o cliente Groq com a chave da API
+client = Groq(
+    api_key="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")
 
 
 def readContextFromFile(filePath):
