@@ -33,4 +33,4 @@ with st.form(key='text_to_speech_form'):
         audio_file_path = asyncio.run(generate_audio(text, voice))
 
         # Display the audio
-        st.audio(audio_file_path, format='audio/mp3')
+        st.audio(audio_file_path, format='audio/wav')
