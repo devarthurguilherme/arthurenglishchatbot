@@ -50,7 +50,7 @@ st.header("🔄 From Portuguese to English")
 """
 - **Tradução Português-Inglês**: 🌐
   - Traduza frases do português para o inglês de maneira natural, com foco em expressões e termos do dia a dia.
-  - O Chatbot ajudará você a compreender por que certas expressões são usadas, oferecendo dicas sobre pronúncia e uso apropriado.
+  - O Chatbot ajudará você a compreender por que certas expressões são usadas, oferecendo dicas uso apropriado.
 """
 
 # Seção: Página Text to Speech
