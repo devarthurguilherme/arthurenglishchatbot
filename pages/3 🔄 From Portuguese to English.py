@@ -86,23 +86,23 @@ def main():
     st.set_page_config(layout='wide')
 
     # Initialize Prompt State
-    if "conversation_prompt" not in st.session_state:
-        st.session_state.conversation_prompt = ""
+    if "translator_chat_prompt" not in st.session_state:
+        st.session_state.translator_chat_prompt = ""
 
     # Initialize Responses State
-    if "conversation_responses" not in st.session_state:
-        st.session_state.conversation_responses = {
+    if "translator_chat_responses" not in st.session_state:
+        st.session_state.translator_chat_responses = {
             "llama-3.1-70b-versatile": [],
             "llama3-70b-8192": [],
             "mixtral-8x7b-32768": [],
             "gemma2-9b-it": [],
             "llama3-groq-70b-8192-tool-use-preview": [],
         }
-        st.session_state.selectedConversationModel = "llama-3.1-70b-versatile"
+        st.session_state.selected_translator_model = "llama-3.1-70b-versatile"
 
     # Sidebar
     with st.sidebar:
-        st.title("🗨️ Conversation")
+        st.title("🗨️ Translator Chat")
 
         # Button to start recording
         audioBytes = audio_recorder()
@@ -116,7 +116,7 @@ def main():
             transcription = transcribeAudio(audioBuffer, selectedLanguage)
 
             if transcription:
-                st.session_state.conversation_prompt = transcription
+                st.session_state.translator_chat_prompt = transcription
 
         selectedModel = st.selectbox("Model", [
             "llama-3.1-70b-versatile",
@@ -128,9 +128,9 @@ def main():
 
         selectedVoice = st.selectbox("Accent", VOICES)
 
-    st.session_state.selectedConversationModel = selectedModel
+    st.session_state.selected_translator_model = selectedModel
 
-    st.write("Esse chatbot é especializado em traduzir, adaptar e verificar melhor expressão do Português para o Inglês.")
+    st.write("Esse chatbot é especializado em traduzir, adaptar e verificar a melhor expressão do Português para o Inglês.")
 
     # Adicionando uma divisória
     st.markdown("""
@@ -146,7 +146,7 @@ def main():
 
     # Show Historic Chat
     st.write("**Chat:**")
-    for userMessage, response in st.session_state.conversation_responses[selectedModel]:
+    for userMessage, response in st.session_state.translator_chat_responses[selectedModel]:
         with st.chat_message("user"):
             st.write(f"{userMessage}")
         with st.chat_message("assistant"):
@@ -155,9 +155,9 @@ def main():
     # User Input for written
     newPrompt = st.chat_input("Digite uma mensagem")
     if newPrompt:
-        st.session_state.conversation_prompt = newPrompt
+        st.session_state.translator_chat_prompt = newPrompt
 
-    if st.session_state.conversation_prompt:
+    if st.session_state.translator_chat_prompt:
         # Models
         modelFunctions = {
             "llama-3.1-70b-versatile": getChatResponseLlama3Versatile,
@@ -167,16 +167,16 @@ def main():
             "llama3-groq-70b-8192-tool-use-preview": getChatResponseLlama3Groq,
         }
         response = modelFunctions[selectedModel](
-            st.session_state.conversation_prompt, st.session_state.conversation_responses[selectedModel])
+            st.session_state.translator_chat_prompt, st.session_state.translator_chat_responses[selectedModel])
 
         # Add to the historic
-        st.session_state.conversation_responses[selectedModel].append(
-            (st.session_state.conversation_prompt, response))
+        st.session_state.translator_chat_responses[selectedModel].append(
+            (st.session_state.translator_chat_prompt, response))
 
         # Show answer
         with st.chat_message("user"):
-            st.write(f"{st.session_state.conversation_prompt}")
-            st.session_state.conversation_prompt = ""
+            st.write(f"{st.session_state.translator_chat_prompt}")
+            st.session_state.translator_chat_prompt = ""
 
             # Check if there is some record user audio
             if 'audioBytes' in st.session_state and st.session_state.audioBytes:
