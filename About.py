@@ -5,7 +5,7 @@ st.title("📚 Arthur's English Teacher")
 
 # Introdução
 st.markdown("""
-Bem-vindo ao manual de instruções do seu app English Teacher! Este aplicativo é uma ferramenta poderosa para praticar e aprender inglês com diversas funcionalidades. Abaixo, você encontrará uma descrição detalhada de cada página do app. 🚀
+Bem-vindo ao manual de instruções do seu app English Teacher! Este aplicativo é uma ferramenta poderosa para praticar e aprender inglês com diversas funcionalidades. Abaixo, você encontrará uma descrição detalhada de cada página do app 🚀
 """)
 
 # Seção: Página do Chatbot
