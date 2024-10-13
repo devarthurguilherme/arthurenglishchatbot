@@ -104,7 +104,7 @@ def main():
 
     # Sidebar
     with st.sidebar:
-        st.title("🗨️ Especialista em Estruturas Gramaticais")
+        st.title("📚 Grammar Structure Assistent")
 
         # Button to start recording
         audioBytes = audio_recorder()
