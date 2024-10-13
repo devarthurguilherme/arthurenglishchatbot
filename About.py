@@ -27,6 +27,30 @@ Nesta página, você pode conversar com o Chatbot, que atua como seu professor d
   - Personalize a experiência escolhendo o sotaque que o modelo de LLM irá usar nas respostas faladas.
 """)
 
+# Seção: Especialista em Estruturas Gramaticais
+st.header("📚 Especialista em Estruturas Gramaticais")
+
+st.markdown("""
+Nesta página, você encontrará um chatbot especializado em ajudar a melhorar suas habilidades em estruturas gramaticais do inglês. Aqui estão as funcionalidades principais:
+
+- **Modelo de Conversa**: 🎤 
+  - Escolha entre diferentes modelos de linguagem que se adaptam ao seu estilo de aprendizado e ajudam a entender melhor as estruturas gramaticais.
+
+- **Transcrição de Áudio**: 🎙️ 
+  - Grave sua voz e o chatbot irá transcrever automaticamente o que você disse, permitindo que você avalie sua pronúncia e clareza.
+
+- **Correção de Erros e Sugestões**: ✅ 
+  - O chatbot corrige erros gramaticais com precisão, sugere expressões idiomáticas comuns e oferece formas mais naturais de construir frases, sempre focando em situações do dia a dia.
+
+- **Explicações de Estruturas Gramaticais**: 📚 
+  - Receba explicações claras sobre nuances linguísticas e estruturas gramaticais, ajudando a aprofundar seu entendimento do inglês e a aplicar as regras de forma prática.
+
+- **Interação Amigável**: 😊 
+  - O chatbot simula um parceiro de conversa experiente, incentivando você a praticar e ganhar confiança nas habilidades gramaticais do inglês.
+  - As respostas são formuladas de maneira amigável e encorajadora, para que você se sinta à vontade para praticar.
+""")
+
+
 # Seção: Página de Conversação
 st.header("💬 Conversação")
 
