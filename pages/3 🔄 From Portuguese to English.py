@@ -102,7 +102,7 @@ def main():
 
     # Sidebar
     with st.sidebar:
-        st.title("🗨️ Translator Chat")
+        st.title("🔄 From Portuguese to English")
 
         # Button to start recording
         audioBytes = audio_recorder()

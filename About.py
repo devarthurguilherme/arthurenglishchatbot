@@ -28,7 +28,7 @@ Nesta página, você pode conversar com o Chatbot, que atua como seu professor d
 """)
 
 # Seção: Especialista em Estruturas Gramaticais
-st.header("📚 Especialista em Estruturas Gramaticais")
+st.header("📚 Grammar Structure")
 
 st.markdown("""
 Nesta página, você encontrará um chatbot especializado em ajudar a melhorar suas habilidades em estruturas gramaticais do inglês. Aqui estão as funcionalidades principais:
@@ -52,7 +52,7 @@ Nesta página, você encontrará um chatbot especializado em ajudar a melhorar s
 
 
 # Seção: Página de Conversação
-st.header("💬 Conversação")
+st.header("💬 Conversation")
 
 st.markdown("""
 Nesta página, você pode treinar suas habilidades de conversação em inglês com um chat simples. Aqui está o que você pode fazer:
@@ -78,7 +78,7 @@ st.header("🔄 From Portuguese to English")
 """
 
 # Seção: Página Text to Speech
-st.header("🔡 Text to Speech")
+st.header("📖→ 🗣️ Text to Speech")
 
 st.markdown("""
 Na página Text to Speech, você pode converter texto em áudio. As funcionalidades incluem:
@@ -98,7 +98,7 @@ Na página Text to Speech, você pode converter texto em áudio. As funcionalida
 
 
 # Seção: Página Speech to Text
-st.header("🗣️ Speech to Text")
+st.header("🗣️ → 📖 Speech to Text")
 
 st.markdown("""
 A página Speech to Text é ideal para treinar a sua dicção e fala. Confira o que você pode fazer:
