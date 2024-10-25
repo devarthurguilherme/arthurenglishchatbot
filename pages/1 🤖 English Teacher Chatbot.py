@@ -17,6 +17,11 @@ GROC_API_KEY = os.getenv("GROC_API_KEY")
 client = Groq(
     api_key=GROC_API_KEY)
 
+# Streamlit Configure here
+st.set_page_config(page_title="Arthur's English Teacher 🤖",
+                   page_icon="📚", layout='wide')
+st.title("🤖 English Teacher Chatbot")
+
 
 def readContextFromFile(filePath):
     try:
@@ -84,16 +89,12 @@ def chatLlama3Groq_70b_8192ToolUsePreview(message, history):
 
 
 def main():
-    st.set_page_config(layout='wide')
-
     # Prompt State Started
     if "prompt" not in st.session_state:
         st.session_state.prompt = ""
 
     # Sidebar
     with st.sidebar:
-        st.title("🤖 English Teacher Chatbot")
-
         # Button to start recording
         audioBytes = audio_recorder()
 
