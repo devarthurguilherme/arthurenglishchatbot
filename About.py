@@ -1,5 +1,8 @@
 import streamlit as st
 
+
+st.set_page_config(page_title="Arthur's English Teacher 🤖",
+                   page_icon="🤖", layout='wide')
 # Título do manual
 st.title("📚 Arthur's English Teacher")
 
