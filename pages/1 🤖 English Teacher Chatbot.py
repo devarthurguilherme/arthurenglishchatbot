@@ -17,7 +17,7 @@ GROC_API_KEY = os.getenv("GROC_API_KEY2")
 # client = Groq(
 #     api_key=GROC_API_KEY)
 client = Groq(
-    api_key=GROC_API_KEY)
+)
 
 # Streamlit Configure here
 st.set_page_config(page_title="Arthur's English Teacher 🤖",
