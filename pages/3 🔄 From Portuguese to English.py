@@ -11,7 +11,7 @@ import io
 # Load Env Variables
 load_dotenv(override=True)
 
-GROC_API_KEY = os.getenv("GROC_API_KEY")
+GROC_API_KEY = os.getenv("GROC_API_KEY2")
 
 # Config Client
 client = Groq(
