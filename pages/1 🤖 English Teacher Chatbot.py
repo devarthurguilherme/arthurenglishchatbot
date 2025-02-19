@@ -18,7 +18,7 @@ client = Groq(
     api_key=GROC_API_KEY)
 
 # Streamlit Configure here
-st.set_page_config(page_title="Arthur's English Teacher 🤖",
+st.set_page_config(page_title="Arthur's English Teacher🤖",
                    page_icon="🤖", layout='wide')
 st.title("🤖 English Teacher Chatbot")
 
