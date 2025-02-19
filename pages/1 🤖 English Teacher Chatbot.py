@@ -11,11 +11,10 @@ import io
 # Load Env Variables
 load_dotenv(override=True)
 
-GROC_API_KEY = os.getenv("GROC_API_KEY2")
+GROC_API_KEY = os.getenv("GROC_API_KEY")
 
 # Config Client
-client = Groq(
-    api_key=GROC_API_KEY)
+client = Groq(api_key=GROC_API_KEY)
 
 # Streamlit Configure here
 st.set_page_config(page_title="Arthur's English Teacher🤖",
@@ -66,26 +65,27 @@ def getResponseFromModel(model, message, history):
 
     return responseContent.strip()
 
-
 # Functions to each model
-def chatLlama3_1_70bVersatile(message, history):
-    return getResponseFromModel("llama-3.1-70b-versatile", message, history)
 
 
-def chatLlama3_70b_8192(message, history):
-    return getResponseFromModel("llama3-70b-8192", message, history)
+def chatLlama3_3_70b_versatile(message, history):
+    return getResponseFromModel("llama-3.3-70b-versatile", message, history)
 
 
-def chatGroqMixtral(message, history):
-    return getResponseFromModel("mixtral-8x7b-32768", message, history)
+def chatDeepseek_r1_distill_llama_70b(message, history):
+    return getResponseFromModel("deepseek-r1-distill-llama-70b", message, history)
 
 
-def chatGemma2_9bIt(message, history):
+def chatQwen_2_5_coder_32b(message, history):
+    return getResponseFromModel("qwen-2.5-coder-32b", message, history)
+
+
+def chatGemma2_9b_it(message, history):
     return getResponseFromModel("gemma2-9b-it", message, history)
 
 
-def chatLlama3Groq_70b_8192ToolUsePreview(message, history):
-    return getResponseFromModel("llama3-groq-70b-8192-tool-use-preview", message, history)
+def chatMixtral_8x7b_32768(message, history):
+    return getResponseFromModel("mixtral-8x7b-32768", message, history)
 
 
 def main():
@@ -99,8 +99,7 @@ def main():
         audioBytes = audio_recorder()
 
         # Select Language to User Input Audio
-        selectedLanguage = st.selectbox(
-            "Input Audio Language", INPUT_LANGUAGE)
+        selectedLanguage = st.selectbox("Input Audio Language", INPUT_LANGUAGE)
 
         if audioBytes:
             audioBuffer = io.BytesIO(audioBytes)
@@ -111,28 +110,27 @@ def main():
 
         if "responses" not in st.session_state:
             st.session_state.responses = {
-                "llama-3.1-70b-versatile": [],
-                "llama3-70b-8192": [],
-                "mixtral-8x7b-32768": [],
+                "llama-3.3-70b-versatile": [],
+                "deepseek-r1-distill-llama-70b": [],
+                "qwen-2.5-coder-32b": [],
                 "gemma2-9b-it": [],
-                "llama3-groq-70b-8192-tool-use-preview": [],
+                "mixtral-8x7b-32768": [],
             }
-            st.session_state.selectedModel = "llama-3.1-70b-versatile"
+            st.session_state.selectedModel = "llama-3.3-70b-versatile"
 
         selectedModel = st.selectbox("Model", [
-            "llama-3.1-70b-versatile",
-            "llama3-70b-8192",
-            "mixtral-8x7b-32768",
+            "llama-3.3-70b-versatile",
+            "deepseek-r1-distill-llama-70b",
+            "qwen-2.5-coder-32b",
             "gemma2-9b-it",
-            "llama3-groq-70b-8192-tool-use-preview",
+            "mixtral-8x7b-32768",
         ])
 
         selectedVoice = st.selectbox("Accent", VOICES)
 
     st.session_state.selectedModel = selectedModel
 
-   # About Chatbot
-
+    # About Chatbot
     st.write("Esse chatbot é como um professor de inglês, corrigindo erros gramaticais, praticando conversação e traduzindo, sem focar na pontuação, a menos que pedido.")
 
     # Adicionando uma divisória
@@ -164,11 +162,11 @@ def main():
     if st.session_state.prompt:
         # Models
         modelFunctions = {
-            "llama-3.1-70b-versatile": chatLlama3_1_70bVersatile,
-            "llama3-70b-8192": chatLlama3_70b_8192,
-            "mixtral-8x7b-32768": chatGroqMixtral,
-            "gemma2-9b-it": chatGemma2_9bIt,
-            "llama3-groq-70b-8192-tool-use-preview": chatLlama3Groq_70b_8192ToolUsePreview,
+            "llama-3.3-70b-versatile": chatLlama3_3_70b_versatile,
+            "deepseek-r1-distill-llama-70b": chatDeepseek_r1_distill_llama_70b,
+            "qwen-2.5-coder-32b": chatQwen_2_5_coder_32b,
+            "gemma2-9b-it": chatGemma2_9b_it,
+            "mixtral-8x7b-32768": chatMixtral_8x7b_32768,
         }
         response = modelFunctions[selectedModel](
             st.session_state.prompt, st.session_state.responses[selectedModel])

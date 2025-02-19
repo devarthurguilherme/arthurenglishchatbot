@@ -13,8 +13,7 @@ load_dotenv(override=True)
 GROC_API_KEY = os.getenv("GROC_API_KEY2")
 
 # Config Client
-client = Groq(
-    api_key=GROC_API_KEY)
+client = Groq(api_key=GROC_API_KEY)
 
 # Streamlit Configure here
 st.set_page_config(page_title="Arthur's English Teacher 🤖",
@@ -71,27 +70,26 @@ def getResponseFromModel(model, message, history):
 
     return responseContent.strip()
 
+
 # Functions to each model
+def chatLlama3_3_70b_versatile(message, history):
+    return getResponseFromModel("llama-3.3-70b-versatile", message, history)
 
 
-def getChatResponseLlama3Versatile(message, history):
-    return getResponseFromModel("llama-3.1-70b-versatile", message, history)
+def chatDeepseek_r1_distill_llama_70b(message, history):
+    return getResponseFromModel("deepseek-r1-distill-llama-70b", message, history)
 
 
-def getChatResponseLlama3_8192(message, history):
-    return getResponseFromModel("llama3-70b-8192", message, history)
+def chatQwen_2_5_coder_32b(message, history):
+    return getResponseFromModel("qwen-2.5-coder-32b", message, history)
 
 
-def getChatResponseMixtral(message, history):
-    return getResponseFromModel("mixtral-8x7b-32768", message, history)
-
-
-def getChatResponseGemma2(message, history):
+def chatGemma2_9b_it(message, history):
     return getResponseFromModel("gemma2-9b-it", message, history)
 
 
-def getChatResponseLlama3Groq(message, history):
-    return getResponseFromModel("llama3-groq-70b-8192-tool-use-preview", message, history)
+def chatMixtral_8x7b_32768(message, history):
+    return getResponseFromModel("mixtral-8x7b-32768", message, history)
 
 
 def main():
@@ -102,13 +100,13 @@ def main():
     # Initialize Responses State
     if "conversation_responses" not in st.session_state:
         st.session_state.conversation_responses = {
-            "llama-3.1-70b-versatile": [],
-            "llama3-70b-8192": [],
-            "mixtral-8x7b-32768": [],
+            "llama-3.3-70b-versatile": [],
+            "deepseek-r1-distill-llama-70b": [],
+            "qwen-2.5-coder-32b": [],
             "gemma2-9b-it": [],
-            "llama3-groq-70b-8192-tool-use-preview": [],
+            "mixtral-8x7b-32768": [],
         }
-        st.session_state.selectedConversationModel = "llama-3.1-70b-versatile"
+        st.session_state.selectedConversationModel = "llama-3.3-70b-versatile"
 
     # Sidebar
     with st.sidebar:
@@ -127,11 +125,11 @@ def main():
                 st.session_state.conversation_prompt = transcription
 
         selectedModel = st.selectbox("Model", [
-            "llama-3.1-70b-versatile",
-            "llama3-70b-8192",
-            "mixtral-8x7b-32768",
+            "llama-3.3-70b-versatile",
+            "deepseek-r1-distill-llama-70b",
+            "qwen-2.5-coder-32b",
             "gemma2-9b-it",
-            "llama3-groq-70b-8192-tool-use-preview",
+            "mixtral-8x7b-32768",
         ])
 
         selectedVoice = st.selectbox("Accent", VOICES)
@@ -168,11 +166,11 @@ def main():
     if st.session_state.conversation_prompt:
         # Models
         modelFunctions = {
-            "llama-3.1-70b-versatile": getChatResponseLlama3Versatile,
-            "llama3-70b-8192": getChatResponseLlama3_8192,
-            "mixtral-8x7b-32768": getChatResponseMixtral,
-            "gemma2-9b-it": getChatResponseGemma2,
-            "llama3-groq-70b-8192-tool-use-preview": getChatResponseLlama3Groq,
+            "llama-3.3-70b-versatile": chatLlama3_3_70b_versatile,
+            "deepseek-r1-distill-llama-70b": chatDeepseek_r1_distill_llama_70b,
+            "qwen-2.5-coder-32b": chatQwen_2_5_coder_32b,
+            "gemma2-9b-it": chatGemma2_9b_it,
+            "mixtral-8x7b-32768": chatMixtral_8x7b_32768,
         }
         response = modelFunctions[selectedModel](
             st.session_state.conversation_prompt, st.session_state.conversation_responses[selectedModel])
